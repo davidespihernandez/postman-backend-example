@@ -1,6 +1,0 @@
-$kind: collection
-description: |-
-  A RESTful API for managing Item resources with full CRUD operations.
-  Supports listing (with pagination), creating, retrieving, updating (full and partial), and deleting items.
-variables:
-  baseUrl: http://localhost:3000
