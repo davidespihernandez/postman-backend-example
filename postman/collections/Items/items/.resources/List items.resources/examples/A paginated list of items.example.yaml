@@ -1,0 +1,102 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/items?page=1&size=20"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    - key: page
+      value: "1"
+      description: Page number (1-based)
+    - key: size
+      value: "20"
+      description: Number of items per page
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "total": 42,
+        "next": "http://localhost:3000/items?page=3&size=20",
+        "prev": "http://localhost:3000/items?page=1&size=20",
+        "items": [
+          {
+            "id": 21,
+            "sku": "WIDGET-021",
+            "name": "Green Widget",
+            "description": "A medium green widget for outdoor use."
+          },
+          {
+            "id": 22,
+            "sku": "WIDGET-022",
+            "name": "Red Widget",
+            "description": null
+          },
+          {
+            "id": 23,
+            "sku": "GADGET-001",
+            "name": "Pocket Gadget",
+            "description": "A compact gadget that fits in any pocket."
+          }
+        ]
+      }
+    $type: |-
+      {
+        "description": "A paginated list of Item resources.",
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "description": "Total number of items across all pages."
+          },
+          "next": {
+            "type": "string",
+            "description": "URL to fetch the next page of results, or null if on the last page."
+          },
+          "prev": {
+            "type": "string",
+            "description": "URL to fetch the previous page of results, or null if on the first page."
+          },
+          "items": {
+            "type": "array",
+            "description": "Array of Item objects for the current page.",
+            "items": {
+              "description": "A fully-hydrated Item resource, including the server-assigned id.",
+              "type": "object",
+              "properties": {
+                "sku": {
+                  "type": "string",
+                  "description": "Stock-keeping unit — must be unique across all items."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Human-readable name of the item."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Optional longer description of the item."
+                }
+              },
+              "required": [
+                "id",
+                "sku",
+                "name"
+              ]
+            }
+          }
+        },
+        "required": [
+          "total",
+          "next",
+          "prev",
+          "items"
+        ]
+      }
+order: 1000

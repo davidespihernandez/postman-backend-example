@@ -1,0 +1,32 @@
+$kind: http-request
+name: Get item by ID
+description: Retrieves a single item by its unique identifier.
+url: "{{baseUrl}}/items/:id"
+method: GET
+headers:
+  - key: Accept
+    value: application/json
+  - key: x-mock-response-code
+    value: "404"
+    disabled: true
+pathVariables:
+  - key: id
+    value: "3580"
+    description: Unique integer identifier of the item
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: text
+  content: ""
+examples: ./.resources/Get item by ID.resources/examples
+order: 1000

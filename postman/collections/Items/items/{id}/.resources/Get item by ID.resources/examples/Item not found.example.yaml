@@ -1,0 +1,45 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/items/:id"
+  method: GET
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: id
+      value: "3580"
+      description: Unique integer identifier of the item
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": 404,
+        "message": "Item not found."
+      }
+    $type: |-
+      {
+        "description": "Standard error response returned when a request cannot be fulfilled.",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "HTTP status code or application-specific error code."
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable description of the error."
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      }
+order: 2000

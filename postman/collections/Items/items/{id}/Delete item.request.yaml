@@ -1,0 +1,27 @@
+$kind: http-request
+description: Permanently deletes an item by its unique identifier.
+url: "{{baseUrl}}/items/:id"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: id
+    value: "3580"
+    description: Unique integer identifier of the item
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: text
+  content: ""
+examples: ./.resources/Delete item.resources/examples
+order: 4000

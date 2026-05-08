@@ -1,0 +1,13 @@
+{
+  "id": "bfeda21c-3331-47a3-9917-2135e601bd94",
+  "version": 1,
+  "name": "Items API",
+  "protocol": "http",
+  "port": 4500,
+  "mockSrc": "./mock.js",
+  "autoRestartOnChange": true,
+  "logging": {
+    "level": "verbose",
+    "showBody": true
+  }
+}
