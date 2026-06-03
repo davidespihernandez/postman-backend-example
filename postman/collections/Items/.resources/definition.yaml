@@ -1,5 +1,0 @@
-$kind: collection
-description: |
-  A RESTful API for managing Item resources. Supports full CRUD operations: listing items with pagination, creating new items, retrieving a single item by ID, replacing an item (full update), partially updating an item, and deleting an item.
-variables:
-  baseUrl: /api/v1
