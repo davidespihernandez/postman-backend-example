@@ -1,0 +1,62 @@
+$kind: http-example
+name: The updated item after partial update.
+request:
+  url: "{{baseUrl}}/items/:id"
+  method: PATCH
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  pathVariables:
+    - key: id
+      value: "6778"
+      description: The unique integer ID of the item.
+  body:
+    type: json
+    content: |-
+      {
+        "sku": "<string>",
+        "name": "Blue Widget Revised",
+        "description": "Updated description for the blue widget."
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": 1,
+        "sku": "WIDGET-001",
+        "name": "Blue Widget",
+        "description": "A small blue widget used in assembly line B."
+      }
+    $type: |-
+      {
+        "description": "A fully populated item resource, including the server-assigned ID.",
+        "type": "object",
+        "properties": {
+          "sku": {
+            "type": "string",
+            "example": "WIDGET-001",
+            "description": "Unique stock-keeping unit identifier for the item."
+          },
+          "name": {
+            "type": "string",
+            "example": "Blue Widget",
+            "description": "Human-readable name of the item."
+          },
+          "description": {
+            "type": "string",
+            "example": "A small blue widget used in assembly line B.",
+            "description": "Optional longer description of the item."
+          }
+        },
+        "required": [
+          "id",
+          "sku",
+          "name"
+        ]
+      }
+order: 1000
