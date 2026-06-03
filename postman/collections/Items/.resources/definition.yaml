@@ -1,0 +1,4 @@
+$kind: collection
+description: A production-quality REST API for managing items with full CRUD support.
+variables:
+  baseUrl: https://api.example.com/v1

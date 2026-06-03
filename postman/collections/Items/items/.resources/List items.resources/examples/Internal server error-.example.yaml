@@ -1,0 +1,53 @@
+$kind: http-example
+name: Internal server error.
+request:
+  url: "{{baseUrl}}/items?page=2&size=20"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    - key: page
+      value: "2"
+      disabled: false
+      description: Page number (1-based).
+    - key: size
+      value: "20"
+      disabled: false
+      description: Number of items per page.
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 500
+  statusText: Internal Server Error
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": 500,
+        "message": "An unexpected error occurred. Please try again later."
+      }
+    $type: |-
+      {
+        "description": "Standard error response body.",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "example": 404,
+            "description": "HTTP status code mirrored in the body for convenience."
+          },
+          "message": {
+            "type": "string",
+            "example": "Item with id 42 was not found.",
+            "description": "Human-readable description of the error."
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      }
+order: 2000

@@ -1,0 +1,15 @@
+{
+  "id": "019e8d07-1b8c-71ff-ae50-6aa8b30ce9a9",
+  "version": 1,
+  "name": "Items",
+  "slug": "new-mock-97e16",
+  "isPrivate": false,
+  "protocol": "http",
+  "port": 3001,
+  "mockSrc": "./items.js",
+  "autoRestartOnChange": true,
+  "logging": {
+    "level": "verbose",
+    "showBody": true
+  }
+}

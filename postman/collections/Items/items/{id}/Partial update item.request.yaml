@@ -1,0 +1,54 @@
+$kind: http-request
+description: Applies a partial update to an existing item. Only provided fields are changed.
+url: "{{baseUrl}}/items/:id"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: id
+    value: "42"
+    description: The integer ID of the item.
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "example": 42
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: json
+  content: |-
+    {
+      "name": "Green Widget"
+    }
+  $type: |-
+    {
+      "description": "Payload for partially updating an existing item. All fields are optional; only provided fields are changed.",
+      "type": "object",
+      "properties": {
+        "sku": {
+          "type": "string",
+          "example": "WIDGET-002",
+          "description": "Unique stock-keeping unit identifier for the item."
+        },
+        "name": {
+          "type": "string",
+          "example": "Red Widget",
+          "description": "Human-readable name of the item."
+        },
+        "description": {
+          "type": "string",
+          "example": "Updated description for the widget.",
+          "description": "Optional longer description of the item."
+        }
+      }
+    }
+examples: ./.resources/Partial update item.resources/examples
+order: 3000

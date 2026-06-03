@@ -1,0 +1,52 @@
+$kind: http-example
+name: Item not found.
+request:
+  url: "{{baseUrl}}/items/:id"
+  method: PATCH
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  pathVariables:
+    - key: id
+      value: "42"
+      description: The integer ID of the item.
+  body:
+    type: json
+    content: |-
+      {
+        "name": "Green Widget"
+      }
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": 404,
+        "message": "Item with id 42 was not found."
+      }
+    $type: |-
+      {
+        "description": "Standard error response body.",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "example": 404,
+            "description": "HTTP status code mirrored in the body for convenience."
+          },
+          "message": {
+            "type": "string",
+            "example": "Item with id 42 was not found.",
+            "description": "Human-readable description of the error."
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      }
+order: 2000

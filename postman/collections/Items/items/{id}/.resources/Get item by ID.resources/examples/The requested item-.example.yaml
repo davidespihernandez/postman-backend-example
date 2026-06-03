@@ -1,0 +1,56 @@
+$kind: http-example
+name: The requested item.
+request:
+  url: "{{baseUrl}}/items/:id"
+  method: GET
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: id
+      value: "42"
+      description: The integer ID of the item.
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": 42,
+        "sku": "WIDGET-001",
+        "name": "Blue Widget",
+        "description": "A small blue widget used in assembly line B."
+      }
+    $type: |-
+      {
+        "description": "A fully-hydrated item resource as returned by the server.",
+        "type": "object",
+        "properties": {
+          "sku": {
+            "type": "string",
+            "example": "WIDGET-001",
+            "description": "Unique stock-keeping unit identifier for the item."
+          },
+          "name": {
+            "type": "string",
+            "example": "Blue Widget",
+            "description": "Human-readable name of the item."
+          },
+          "description": {
+            "type": "string",
+            "example": "A small blue widget used in assembly line B.",
+            "description": "Optional longer description of the item."
+          }
+        },
+        "required": [
+          "id",
+          "sku",
+          "name"
+        ]
+      }
+order: 1000
