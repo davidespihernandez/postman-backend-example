@@ -1,0 +1,342 @@
+openapi: 3.0.3
+info:
+  title: Items API
+  version: 1.0.0
+  description: CRUD API for managing items
+
+servers:
+  - url: http://localhost:8000
+
+tags:
+  - name: items
+    description: Operations on items
+
+paths:
+  /items:
+    get:
+      summary: List items
+      operationId: listItems
+      tags:
+        - items
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: A paginated list of items
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedItems'
+              examples:
+                PaginatedItemsExample:
+                  $ref: '#/components/examples/PaginatedItemsExample'
+
+    post:
+      summary: Create item
+      operationId: createItem
+      tags:
+        - items
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemCreate'
+            examples:
+              ItemCreateExample:
+                $ref: '#/components/examples/ItemCreateExample'
+      responses:
+        '201':
+          description: Item created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+              examples:
+                ItemExample:
+                  $ref: '#/components/examples/ItemExample'
+
+  /items/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: Item ID
+        required: true
+        schema:
+          type: integer
+
+    get:
+      summary: Get item by ID
+      operationId: getItem
+      tags:
+        - items
+      responses:
+        '200':
+          description: Item found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+              examples:
+                ItemExample:
+                  $ref: '#/components/examples/ItemExample'
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NotFoundExample:
+                  $ref: '#/components/examples/NotFoundExample'
+
+    put:
+      summary: Full replace of an item
+      operationId: replaceItem
+      tags:
+        - items
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemCreate'
+            examples:
+              ItemCreateExample:
+                $ref: '#/components/examples/ItemCreateExample'
+      responses:
+        '200':
+          description: Item replaced successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+              examples:
+                ItemExample:
+                  $ref: '#/components/examples/ItemExample'
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NotFoundExample:
+                  $ref: '#/components/examples/NotFoundExample'
+
+    patch:
+      summary: Partial update of an item
+      operationId: updateItem
+      tags:
+        - items
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemPatch'
+            examples:
+              ItemPatchExample:
+                $ref: '#/components/examples/ItemPatchExample'
+      responses:
+        '200':
+          description: Item updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+              examples:
+                ItemExample:
+                  $ref: '#/components/examples/ItemExample'
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NotFoundExample:
+                  $ref: '#/components/examples/NotFoundExample'
+
+    delete:
+      summary: Delete item
+      operationId: deleteItem
+      tags:
+        - items
+      responses:
+        '204':
+          description: Item deleted successfully
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NotFoundExample:
+                  $ref: '#/components/examples/NotFoundExample'
+
+components:
+  schemas:
+    Item:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: Internal sequential ID
+          example: 1
+        sku:
+          type: string
+          description: Unique stock-keeping unit identifier
+          example: SKU-001
+        name:
+          type: string
+          description: Name of the item
+          example: Widget Pro
+        description:
+          type: string
+          nullable: true
+          description: Optional description of the item
+          example: A high-quality widget for professional use
+      required:
+        - id
+        - sku
+        - name
+
+    ItemCreate:
+      type: object
+      properties:
+        sku:
+          type: string
+          description: Unique stock-keeping unit identifier
+          example: SKU-001
+        name:
+          type: string
+          description: Name of the item
+          example: Widget Pro
+        description:
+          type: string
+          nullable: true
+          description: Optional description of the item
+          example: A high-quality widget for professional use
+      required:
+        - sku
+        - name
+
+    ItemPatch:
+      type: object
+      properties:
+        sku:
+          type: string
+          description: Unique stock-keeping unit identifier
+          example: SKU-001
+        name:
+          type: string
+          description: Name of the item
+          example: Widget Pro
+        description:
+          type: string
+          nullable: true
+          description: Optional description of the item
+          example: A high-quality widget for professional use
+
+    PaginatedItems:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total count of records
+          example: 100
+        next:
+          type: string
+          nullable: true
+          description: URL to the next page
+          example: 'http://localhost:8000/items?page=3&size=20'
+        prev:
+          type: string
+          nullable: true
+          description: URL to the previous page
+          example: 'http://localhost:8000/items?page=1&size=20'
+        items:
+          type: array
+          description: Array of item objects for the current page
+          items:
+            $ref: '#/components/schemas/Item'
+      required:
+        - total
+        - next
+        - prev
+        - items
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+          example: 404
+        message:
+          type: string
+          description: Human-readable error message
+          example: Item not found
+      required:
+        - code
+        - message
+
+  examples:
+    ItemExample:
+      summary: A sample item object
+      value:
+        id: 1
+        sku: SKU-001
+        name: Widget Pro
+        description: A high-quality widget for professional use
+
+    ItemCreateExample:
+      summary: A sample create payload
+      value:
+        sku: SKU-001
+        name: Widget Pro
+        description: A high-quality widget for professional use
+
+    ItemPatchExample:
+      summary: A sample patch payload
+      value:
+        name: Widget Pro Max
+        description: An upgraded high-quality widget for professional use
+
+    PaginatedItemsExample:
+      summary: A sample paginated list response
+      value:
+        total: 100
+        next: 'http://localhost:8000/items?page=3&size=20'
+        prev: 'http://localhost:8000/items?page=1&size=20'
+        items:
+          - id: 21
+            sku: SKU-021
+            name: Widget Alpha
+            description: Alpha series widget
+          - id: 22
+            sku: SKU-022
+            name: Widget Beta
+            description: Beta series widget
+
+    NotFoundExample:
+      summary: A sample 404 error response
+      value:
+        code: 404
+        message: Item not found

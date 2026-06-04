@@ -1,0 +1,4 @@
+$kind: collection
+description: CRUD API for managing items
+variables:
+  baseUrl: http://localhost:8000

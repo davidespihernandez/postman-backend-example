@@ -1,0 +1,60 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/items/:id"
+  method: PUT
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  pathVariables:
+    - key: id
+      value: "9637"
+      description: Item ID
+  body:
+    type: json
+    content: |-
+      {
+        "sku": "SKU-001",
+        "name": "Widget Pro",
+        "description": "A high-quality widget for professional use"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": 1,
+        "sku": "SKU-001",
+        "name": "Widget Pro",
+        "description": "A high-quality widget for professional use"
+      }
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "sku": {
+            "type": "string",
+            "example": "SKU-001",
+            "description": "Unique stock-keeping unit identifier"
+          },
+          "name": {
+            "type": "string",
+            "example": "Widget Pro",
+            "description": "Name of the item"
+          },
+          "description": {
+            "type": "string",
+            "example": "A high-quality widget for professional use",
+            "description": "Optional description of the item"
+          }
+        },
+        "required": [
+          "id",
+          "sku",
+          "name"
+        ]
+      }
+order: 1000

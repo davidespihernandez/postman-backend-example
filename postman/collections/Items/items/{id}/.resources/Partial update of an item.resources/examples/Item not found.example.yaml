@@ -1,0 +1,51 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/items/:id"
+  method: PATCH
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  pathVariables:
+    - key: id
+      value: "9637"
+      description: Item ID
+  body:
+    type: json
+    content: |-
+      {
+        "name": "Widget Pro Max",
+        "description": "An upgraded high-quality widget for professional use"
+      }
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": 404,
+        "message": "Item not found"
+      }
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "example": 404,
+            "description": "Error code"
+          },
+          "message": {
+            "type": "string",
+            "example": "Item not found",
+            "description": "Human-readable error message"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      }
+order: 2000
