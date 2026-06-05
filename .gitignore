@@ -1,0 +1,32 @@
+# SQLite database
+items.db
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environment
+venv/
+.venv/
+env/
+.env/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Environment variable files
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.pyc
+/__pycache__
+.DS_Store
